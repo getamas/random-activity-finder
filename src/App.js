@@ -12,7 +12,7 @@ function App() {
     setHasError(false);
     setIsLoading(true);
 
-    const url = `http://www.boredapi.com/api/activity`;
+    const url = `https://www.boredapi.com/api/activity`;
 
     try {
       const { data } = await axios.get(url);
@@ -31,7 +31,7 @@ function App() {
         <h1>Find a random activity to do</h1>
         <button onClick={() => fetchData()}>Submit</button>
 
-        <div class="result">
+        <div className="result">
           {isLoading ? (
             <div className="loader">Loading ...</div>
           ) : (
