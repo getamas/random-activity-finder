@@ -33,7 +33,7 @@ function App() {
 
         <div className="result">
           {isLoading ? (
-            <div className="loader">Loading ...</div>
+            <div className="loader">Fetching random activity ...</div>
           ) : (
             <p>{activities.activity}</p>
           )}
