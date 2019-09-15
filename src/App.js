@@ -1,24 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import axios from 'axios';
+
 import './App.css';
 
 function App() {
+  const [activities, setActivities] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  const fetchData = async () => {
+    setHasError(false);
+    setIsLoading(true);
+
+    const url = `http://www.boredapi.com/api/activity`;
+
+    try {
+      const { data } = await axios.get(url);
+
+      setActivities(data);
+    } catch(error) {
+      setHasError(error);
+    }
+
+    setIsLoading(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="wrapper">
+        <h1>Find a random activity to do</h1>
+        <button onClick={() => fetchData()}>Submit</button>
+
+        <div class="result">
+          {isLoading ? (
+            <div className="loader">Loading ...</div>
+          ) : (
+            <p>{activities.activity}</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
